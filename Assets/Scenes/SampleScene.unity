@@ -567,8 +567,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1543570653}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 1
+  m_Mass: 10
+  m_Drag: 0.2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -603,7 +603,7 @@ MonoBehaviour:
   rotationVelocity: 5
   movementInput: {x: 0, y: 0, z: 0}
   rotationDirection: {x: 0, y: 0, z: 0}
-  velocitiesValues: 01000000020000000400000006000000
+  velocitiesValues: 02000000040000000600000008000000
 --- !u!114 &1543570658
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -46,11 +46,14 @@ public class rb : MonoBehaviour
             rotationDirection = Vector3.zero;
         }
 
-        myRB.MoveRotation(myRB.rotation * Quaternion.Euler(rotationDirection * Time.deltaTime * rotationVelocity));
+        // myRB.MoveRotation(myRB.rotation * Quaternion.Euler(rotationDirection * Time.deltaTime * rotationVelocity));
     }
 
     private void FixedUpdate()
     {
+        // myRB.MoveRotation(myRB.rotation * Quaternion.Euler(rotationDirection * Time.deltaTime * rotationVelocity));
+        myRB.AddTorque(rotationDirection * rotationVelocity);
+        
         myRB.AddRelativeForce(movementInput * acceleration, ForceMode.Force);
 
         if(myRB.velocity.magnitude > maxSpeed)
