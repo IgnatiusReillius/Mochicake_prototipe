@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class rb : MonoBehaviour
 {
-    [SerializeField] private float acceleration, maxSpeed = 15f, rotationVelocity;
+    [SerializeField] private float acceleration, rotationVelocity;
     [SerializeField] private Vector3 movementInput, rotationDirection;
-    [SerializeField] private int[] velocitiesValues = {1, 2, 4, 6};
+    [SerializeField] private int[] velocitiesValues;
     private Rigidbody myRB;
     
     private void Awake()
@@ -17,35 +17,33 @@ public class rb : MonoBehaviour
 
     private void Update() {
         
-        if(Input.GetKey(KeyCode.BackQuote)) {
-            acceleration = -velocitiesValues[0];
-        }
-        if(Input.GetKey(KeyCode.Alpha0)) {
-            acceleration = 0;
-        }
-        if(Input.GetKey(KeyCode.Alpha1)) {
-            acceleration = velocitiesValues[1];
-        }
-        if(Input.GetKey(KeyCode.Alpha2)) {
-            acceleration = velocitiesValues[2];
-        }
-        if(Input.GetKey(KeyCode.Alpha3)) {
-            acceleration = velocitiesValues[3];
-        }
+        // if (Input.GetKey(KeyCode.BackQuote)) {
+        //     acceleration = -velocitiesValues[0];
+        // }
+        // if (Input.GetKey(KeyCode.Alpha0)) {
+        //     acceleration = 0;
+        // }
+        // if (Input.GetKey(KeyCode.Alpha1)) {
+        //     acceleration = velocitiesValues[1];
+        // }
+        // if (Input.GetKey(KeyCode.Alpha2)) {
+        //     acceleration = velocitiesValues[2];
+        // }
+        // if (Input.GetKey(KeyCode.Alpha3)) {
+        //     acceleration = velocitiesValues[3];
+        // }
 
-        if(Input.GetKey(KeyCode.RightArrow))
-        {
+        if (Input.GetKey(KeyCode.RightArrow)) {
             rotationDirection = Vector3.up;
         }
-        else if (Input.GetKey(KeyCode.LeftArrow))
-        {
+        else if (Input.GetKey(KeyCode.LeftArrow)) {
             rotationDirection = Vector3.down;
         }
-        else
-        {
+        else {
             rotationDirection = Vector3.zero;
         }
 
+        Debug.Log(myRB.velocity.magnitude);
     }
 
     private void FixedUpdate()
@@ -54,9 +52,10 @@ public class rb : MonoBehaviour
         
         myRB.AddRelativeForce(movementInput * acceleration, ForceMode.Force);
 
-        if(myRB.velocity.magnitude > maxSpeed)
-        {
-            myRB.velocity = myRB.velocity.normalized * maxSpeed;
-        }
+    }
+
+    public void SetAccelerationByIndex(int index)
+    {
+        acceleration = velocitiesValues[index];
     }
 }
