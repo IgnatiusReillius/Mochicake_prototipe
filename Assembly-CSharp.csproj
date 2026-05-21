@@ -65,7 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\rb.cs" />
-    <Compile Include="Assets\cc.cs" />
+    <Compile Include="Assets\cameraCtrl.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
