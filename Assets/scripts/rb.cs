@@ -33,29 +33,36 @@ public class rb : MonoBehaviour
         //     acceleration = velocitiesValues[3];
         // }
 
-        if (Input.GetKey(KeyCode.RightArrow)) {
-            rotationDirection = Vector3.up;
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow)) {
-            rotationDirection = Vector3.down;
-        }
-        else {
-            rotationDirection = Vector3.zero;
-        }
-
-        Debug.Log(myRB.velocity.magnitude);
+        // if (Input.GetKey(KeyCode.RightArrow)) {
+        //     rotationDirection = Vector3.up;
+        // }
+        // else if (Input.GetKey(KeyCode.LeftArrow)) {
+        //     rotationDirection = Vector3.down;
+        // }
+        // else {
+        //     rotationDirection = Vector3.zero;
+        // }
     }
 
     private void FixedUpdate()
     {
-        myRB.AddTorque(rotationDirection * rotationVelocity);
-        
         myRB.AddRelativeForce(movementInput * acceleration, ForceMode.Force);
 
+        if(myRB.velocity.magnitude > 0)
+        {
+            myRB.AddTorque(rotationDirection * rotationVelocity);
+            
+        }
     }
 
     public void SetAccelerationByIndex(int index)
     {
         acceleration = velocitiesValues[index];
     }
+
+    public void SetWheelRotation(float normalized)
+    {
+        rotationDirection = Vector3.up * normalized;
+    }
+
 }
