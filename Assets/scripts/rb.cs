@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class rb : MonoBehaviour
 {
-    [SerializeField] private float acceleration, rotationVelocity;
+    [SerializeField] private float acceleration, rotationVelocity, collisionForce;
     [SerializeField] private Vector3 movementInput, rotationDirection;
     [SerializeField] private int[] velocitiesValues;
     private Rigidbody myRB;
-    
+
     private void Awake()
     {
         myRB = GetComponent<Rigidbody>();
@@ -51,7 +51,6 @@ public class rb : MonoBehaviour
         if(myRB.velocity.magnitude > 0)
         {
             myRB.AddTorque(rotationDirection * rotationVelocity);
-            
         }
     }
 
@@ -63,6 +62,11 @@ public class rb : MonoBehaviour
     public void SetWheelRotation(float normalized)
     {
         rotationDirection = Vector3.up * normalized;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        myRB.AddForce(collision.contacts[0].normal * collisionForce, ForceMode.Impulse);
     }
 
 }
