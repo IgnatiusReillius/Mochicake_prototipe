@@ -1,47 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class rb : MonoBehaviour
 {
     [SerializeField] private float acceleration, rotationVelocity, collisionForce;
+    [SerializeField] private int damage;
     [SerializeField] private Vector3 movementInput, rotationDirection;
     [SerializeField] private int[] velocitiesValues;
-    private Rigidbody myRB;
+    [SerializeField] private Rigidbody myRB;
+    [SerializeField] private BoxCollider[] colliderList;
+    [SerializeField] private GameObject[] goList;
 
     private void Awake()
     {
-        myRB = GetComponent<Rigidbody>();
         movementInput.z = 1;
-    }
-
-    private void Update() {
-        
-        // if (Input.GetKey(KeyCode.BackQuote)) {
-        //     acceleration = -velocitiesValues[0];
-        // }
-        // if (Input.GetKey(KeyCode.Alpha0)) {
-        //     acceleration = 0;
-        // }
-        // if (Input.GetKey(KeyCode.Alpha1)) {
-        //     acceleration = velocitiesValues[1];
-        // }
-        // if (Input.GetKey(KeyCode.Alpha2)) {
-        //     acceleration = velocitiesValues[2];
-        // }
-        // if (Input.GetKey(KeyCode.Alpha3)) {
-        //     acceleration = velocitiesValues[3];
-        // }
-
-        // if (Input.GetKey(KeyCode.RightArrow)) {
-        //     rotationDirection = Vector3.up;
-        // }
-        // else if (Input.GetKey(KeyCode.LeftArrow)) {
-        //     rotationDirection = Vector3.down;
-        // }
-        // else {
-        //     rotationDirection = Vector3.zero;
-        // }
     }
 
     private void FixedUpdate()
@@ -66,6 +40,23 @@ public class rb : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        for (int i = 0; i < colliderList.Length; i++)
+        {
+            Collider hitCollider = collision.contacts[0].thisCollider;
+            if (hitCollider  == colliderList[i])
+            {
+                Debug.Log("choque");
+                colliderList[i].enabled = false;
+                goList[i].SetActive(false);
+                damage++;
+                break;
+            }
+        }
+
+        if(damage == 10)
+        {
+            this.enabled = false;
+        }
         myRB.AddForce(collision.contacts[0].normal * collisionForce, ForceMode.Impulse);
     }
 
