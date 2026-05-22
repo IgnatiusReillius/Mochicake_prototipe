@@ -65,10 +65,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\scripts\SliderScript.cs" />
+    <Compile Include="Assets\scripts\MenuSystem.cs" />
     <Compile Include="Assets\scripts\RudderCtrl.cs" />
     <Compile Include="Assets\scripts\cameraCtrl.cs" />
     <Compile Include="Assets\scripts\RudderVisuals.cs" />
+    <Compile Include="Assets\FinishLine.cs" />
     <Compile Include="Assets\scripts\rb.cs" />
+    <Compile Include="Assets\GameManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
