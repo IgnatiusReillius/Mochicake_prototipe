@@ -12,6 +12,7 @@ public class rb : MonoBehaviour
     [SerializeField] private Rigidbody myRB;
     [SerializeField] private BoxCollider[] colliderList;
     [SerializeField] private GameObject[] goList;
+    [SerializeField] private GameObject deathScreen;
 
     private void Awake()
     {
@@ -35,7 +36,9 @@ public class rb : MonoBehaviour
 
     public void SetWheelRotation(float normalized)
     {
-        rotationDirection = Vector3.up * normalized;
+        if(myRB.velocity.magnitude > 0) {
+            rotationDirection = Vector3.up * normalized;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -55,7 +58,7 @@ public class rb : MonoBehaviour
 
         if(damage == 10)
         {
-            this.enabled = false;
+            deathScreen.SetActive(true);
         }
         myRB.AddForce(collision.contacts[0].normal * collisionForce, ForceMode.Impulse);
     }

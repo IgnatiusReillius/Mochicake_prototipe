@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class FinishLine : MonoBehaviour
 {
-    [SerializeField] private GameObject winScreen;
+    [SerializeField] private GameObject victoryScreen;
+    [SerializeField] private rb rbVelocity;
 
     private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("trigger");
         if(collision.tag == "Player")
         {
-            Debug.Log("player");
-            winScreen.SetActive(true);
+            victoryScreen.SetActive(true);
+            rbVelocity.SetAccelerationByIndex(1);
         }
     }
 }
