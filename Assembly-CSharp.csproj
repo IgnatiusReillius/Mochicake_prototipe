@@ -76,6 +76,7 @@
     <Compile Include="Assets\scripts\HornButton.cs" />
     <Compile Include="Assets\scripts\FinishLine.cs" />
     <Compile Include="Assets\scripts\rb.cs" />
+    <Compile Include="Assets\SeaCurrent.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -5,7 +5,7 @@ using UnityEngine;
 public class DoorCollision : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.CompareTag("Player")) {
+        if (collision.gameObject.CompareTag("Horn")) {
             Destroy(gameObject);
         } 
     }

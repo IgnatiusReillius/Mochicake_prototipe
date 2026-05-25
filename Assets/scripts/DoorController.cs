@@ -23,13 +23,13 @@ public class DoorController : MonoBehaviour
     }
     
     void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Player")) {
+        if (other.CompareTag("Horn")) {
             shipInRange = true;
         }
     }
 
-    void OgerExit(Collider other) {
-        if (other.CompareTag("Player")) {
+    void OnTriggerExit(Collider other) {
+        if (other.CompareTag("Horn")) {
             shipInRange = false;
         }
     }
