@@ -358,7 +358,7 @@ MonoBehaviour:
   mainMenu: {fileID: 2688805229120489191}
   levelMenu: {fileID: 377658788}
   pauseMenu: {fileID: 0}
-  goToLevel: 0
+  goToLevel: 1
   panelUI: {fileID: 0}
 --- !u!114 &377658791
 MonoBehaviour:
@@ -1308,7 +1308,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 377658790}
         m_TargetAssemblyTypeName: MenuSystem, Assembly-CSharp
-        m_MethodName: BackToMenu
+        m_MethodName: GoBack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

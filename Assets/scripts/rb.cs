@@ -48,7 +48,6 @@ public class rb : MonoBehaviour
             Collider hitCollider = collision.contacts[0].thisCollider;
             if (hitCollider  == colliderList[i])
             {
-                Debug.Log("choque");
                 colliderList[i].enabled = false;
                 goList[i].SetActive(false);
                 damage++;
