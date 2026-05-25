@@ -65,18 +65,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\scripts\GameManager.cs" />
-    <Compile Include="Assets\scripts\SliderScript.cs" />
-    <Compile Include="Assets\scripts\MenuSystem.cs" />
-    <Compile Include="Assets\scripts\ButtonHandler.cs" />
-    <Compile Include="Assets\scripts\RudderCtrl.cs" />
-    <Compile Include="Assets\scripts\cameraCtrl.cs" />
-    <Compile Include="Assets\scripts\RudderVisuals.cs" />
-    <Compile Include="Assets\scripts\DoorController.cs" />
-    <Compile Include="Assets\scripts\DoorCollision.cs" />
-    <Compile Include="Assets\scripts\HornButton.cs" />
-    <Compile Include="Assets\scripts\FinishLine.cs" />
+    <Compile Include="Assets\scripts\UI controls\RudderCtrl.cs" />
+    <Compile Include="Assets\scripts\Menu\FinishLine.cs" />
+    <Compile Include="Assets\scripts\Horn system\HornButton.cs" />
+    <Compile Include="Assets\scripts\Horn system\ButtonHandler.cs" />
+    <Compile Include="Assets\scripts\Door system\DoorCollision.cs" />
+    <Compile Include="Assets\scripts\SeaCurrent.cs" />
+    <Compile Include="Assets\scripts\Door system\DoorController.cs" />
+    <Compile Include="Assets\scripts\UI controls\cameraCtrl.cs" />
+    <Compile Include="Assets\scripts\Menu\MenuSystem.cs" />
+    <Compile Include="Assets\scripts\UI controls\RudderVisuals.cs" />
     <Compile Include="Assets\scripts\rb.cs" />
-    <Compile Include="Assets\SeaCurrent.cs" />
+    <Compile Include="Assets\scripts\UI controls\SliderScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
