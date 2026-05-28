@@ -8,6 +8,23 @@ public class MenuSystem : MonoBehaviour
     [SerializeField] private GameObject mainMenu, levelMenu, pauseMenu;
     [SerializeField] private int goToLevel = 1;
     [SerializeField] private CanvasGroup panelUI;
+    [SerializeField] private GameObject[] checks;
+    [SerializeField] private GameManager gameManager;
+
+    public void Awake()
+    {
+        if (gameManager == null) {
+            gameManager = GameObject.Find("Game manager").GetComponent<GameManager>();
+        }
+
+        for(int i = 0; i < checks.Length; i++)
+        {
+            if (gameManager.levelChecks[i])
+            {
+                checks[i].SetActive(true);
+            }
+        }
+    }
 
     public void Update() {
         if(Input.GetKeyDown(KeyCode.Escape)) {
@@ -45,15 +62,18 @@ public class MenuSystem : MonoBehaviour
 
     public void GoToLevel() {
         SceneManager.LoadScene(goToLevel);
+        gameManager.PlayTime();
     }
 
     public void NextLevel() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        gameManager.PlayTime();
     }
 
     public void PlayAgain() {
         SetPaused(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        gameManager.PlayTime();
     }
 
     public void BackToMenu() {
