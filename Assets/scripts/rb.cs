@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class rb : MonoBehaviour
 {
-    [SerializeField] private float acceleration, rotationVelocity, collisionForce, maxAngularSpeed, velocity, stopAngularVelocityTime;
+    [SerializeField] private float acceleration, rotationVelocity, collisionForce, maxAngularSpeed, velocity, stopAngularVelocityTime, maxSpeed;
     public int damage = 0;
     [SerializeField] private Vector3 movementInput, rotationDirection;
     [SerializeField] private int[] velocitiesValues;
@@ -15,6 +15,9 @@ public class rb : MonoBehaviour
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private FinishLine finishLine;
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private ParticleSystem collisionParticles;
+
+    public TrailRenderer[] trailMarks;
 
     private void Awake()
     {
@@ -28,7 +31,8 @@ public class rb : MonoBehaviour
         myRB.AddRelativeForce(movementInput * acceleration, ForceMode.Force);
 
         if(acceleration != 0) {
-            myRB.AddTorque(rotationDirection * rotationVelocity);
+            float speedFactor = Mathf.Clamp01(myRB.velocity.magnitude / maxSpeed);
+            myRB.AddTorque(rotationDirection * rotationVelocity * speedFactor);
         } else {
             myRB.angularVelocity = Vector3.Lerp(myRB.angularVelocity, Vector3.zero, stopAngularVelocityTime * Time.fixedDeltaTime);
             if (myRB.angularVelocity.magnitude < 0.05f) {
@@ -40,6 +44,29 @@ public class rb : MonoBehaviour
             myRB.angularVelocity = myRB.angularVelocity.normalized * maxAngularSpeed;
         }
 
+        CheckDrift();
+    }
+
+    private void CheckDrift()
+    {
+        if(myRB.velocity.magnitude > 0) { StartEmitter(); }
+        else { StopEmitter(); }
+    }
+
+    private void StartEmitter()
+    {
+        foreach(TrailRenderer t in trailMarks)
+        {
+            t.emitting = true;
+        }
+    }
+
+    private void StopEmitter()
+    {
+        foreach(TrailRenderer t in trailMarks)
+        {
+            t.emitting = false;
+        }
     }
 
     public void SetAccelerationByIndex(int index)
@@ -61,10 +88,16 @@ public class rb : MonoBehaviour
             Collider hitCollider = collision.contacts[0].thisCollider;
             if (hitCollider  == colliderList[i])
             {
+                ParticleSystem ps = Instantiate(collisionParticles, collision.contacts[0].point, Quaternion.identity);
+ps.Play();
+Destroy(ps.gameObject, ps.main.duration);
+
                 colliderList[i].enabled = false;
                 goList[i].SetActive(false);
                 damage++;
                 finishLine.haveBeenDamaged();
+
+
                 break;
             }
         }
