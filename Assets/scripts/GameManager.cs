@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public bool[] levelChecks;
     [SerializeField] private bool canTimeRun = false;
     [SerializeField] private float elapsedTime = 0f;
+    public float ElapsedTime => elapsedTime;
 
     private void Awake() {
         if (Instance == null) {

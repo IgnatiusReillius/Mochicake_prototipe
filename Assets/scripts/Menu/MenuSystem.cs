@@ -5,11 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class MenuSystem : MonoBehaviour
 {
-    [SerializeField] private GameObject mainMenu, levelMenu, pauseMenu;
+    [SerializeField] private GameObject mainMenu, levelMenu, pauseMenu, panelUI;
     [SerializeField] private int goToLevel = 1;
-    [SerializeField] private CanvasGroup panelUI;
-    [SerializeField] private GameObject[] checks;
+    public int SelectedLevel => goToLevel;
+    [SerializeField] private GameObject[] checks, levelButtons, lockIcons;
     [SerializeField] private GameManager gameManager;
+
 
     public void Awake()
     {
@@ -17,12 +18,16 @@ public class MenuSystem : MonoBehaviour
             gameManager = GameObject.Find("Game manager").GetComponent<GameManager>();
         }
 
-        for(int i = 0; i < checks.Length; i++)
-        {
-            if (gameManager.levelChecks[i])
-            {
+        for(int i = 0; i < checks.Length; i++) {
+            if (gameManager.levelChecks[i]) {
                 checks[i].SetActive(true);
             }
+        }
+
+        for (int i = 1; i < levelButtons.Length; i++) {
+            bool unlocked = gameManager.levelChecks[(i - 1) * 3];
+            lockIcons[i].SetActive(!unlocked);
+            levelButtons[i].SetActive(unlocked);
         }
     }
 
@@ -43,11 +48,9 @@ public class MenuSystem : MonoBehaviour
         levelMenu.SetActive(false);
     }
 
-    private void SetPaused(bool paused)
-    {
+    private void SetPaused(bool paused) {
         Time.timeScale = paused ? 0f : 1f;
-        panelUI.interactable = !paused;
-        panelUI.blocksRaycasts = !paused;
+        panelUI.SetActive(!paused);
     }
 
     public void Resume() {
@@ -62,22 +65,22 @@ public class MenuSystem : MonoBehaviour
 
     public void GoToLevel() {
         SceneManager.LoadScene(goToLevel);
-        gameManager.PlayTime();
     }
 
     public void NextLevel() {
+        GameManager.Instance.StopTime();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        gameManager.PlayTime();
     }
 
     public void PlayAgain() {
         SetPaused(false);
+        GameManager.Instance.StopTime();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        gameManager.PlayTime();
     }
 
     public void BackToMenu() {
         SetPaused(false);
+        GameManager.Instance.StopTime();
         SceneManager.LoadScene(0);
     }
 

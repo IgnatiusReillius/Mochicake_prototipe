@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectiveTrigger : MonoBehaviour
 {
     [SerializeField] private FinishLine finishLine;
+    [SerializeField] private Animator flashAnimator;
 
     private void Awake()
     {
@@ -14,6 +15,7 @@ public class ObjectiveTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player")) {
             finishLine.photoIsTaken();
+            flashAnimator.SetBool("can flash", true);
         }
     }
 }

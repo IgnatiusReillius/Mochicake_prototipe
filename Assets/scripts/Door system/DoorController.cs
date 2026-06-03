@@ -7,21 +7,29 @@ public class DoorController : MonoBehaviour
 {
     [SerializeField] private SoundButton hornSound;
 
-    [SerializeField] private Transform leftPanel, rightPanel;
-    [SerializeField] private float slideDistance = 2f, speed = 2f;
+    [SerializeField] private float openDuration = 1f, animTime = 0f;
 
     [SerializeField] private bool shipInRange = false, isOpen = false;
-    [SerializeField] private Vector3 leftClosed, rightClosed, leftOpen, rightOpen;
+    [SerializeField] private Animator doorAnimator;
+    [SerializeField] private string animClipName = "door animation";
+    [SerializeField] private GameObject destructionVFX;
+
 
     void Awake() {
         hornSound = GameObject.Find("Horn").GetComponent<SoundButton>();
-
-        leftClosed = leftPanel.localPosition;
-        rightClosed = rightPanel.localPosition;
-        leftOpen = leftClosed + Vector3.left * slideDistance;
-        rightOpen = rightClosed + Vector3.right * slideDistance;
+        doorAnimator.Play(animClipName, 0, 0f);
+        doorAnimator.speed = 0f;
     }
     
+    void Update() {
+        bool shouldOpen = shipInRange && hornSound.horning;
+        if (shouldOpen != isOpen) isOpen = shouldOpen;
+
+        float target = isOpen ? 1f : 0f;
+        animTime = Mathf.MoveTowards(animTime, target, Time.deltaTime / openDuration);
+        doorAnimator.Play(animClipName, 0, animTime);
+    }
+
     void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Horn")) {
             shipInRange = true;
@@ -34,27 +42,14 @@ public class DoorController : MonoBehaviour
         }
     }
 
-    void Update() {
-        bool shouldOpen = shipInRange && hornSound.horning;
-
-        if (shouldOpen && !isOpen) {
-            isOpen = true;
-            StopAllCoroutines();
-            StartCoroutine(MovePanels(leftOpen, rightOpen));
-        } else if (!shouldOpen && isOpen) {
-            isOpen = false;
-            StopAllCoroutines();
-            StartCoroutine(MovePanels(leftClosed, rightClosed));
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            Instantiate(destructionVFX, transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
     }
 
-    private IEnumerator MovePanels(Vector3 leftTarget, Vector3 rightTarget) {
-        while (Vector3.Distance(leftPanel.localPosition, leftTarget) > 0.001f) {
-            leftPanel.localPosition = Vector3.MoveTowards(leftPanel.localPosition, leftTarget, speed * Time.deltaTime);
-            rightPanel.localPosition = Vector3.MoveTowards(rightPanel.localPosition, rightTarget, speed * Time.deltaTime);
-            yield return null;
-        }
-        leftPanel.localPosition = leftTarget;
-        rightPanel.localPosition = rightTarget;
-    }
+
 }

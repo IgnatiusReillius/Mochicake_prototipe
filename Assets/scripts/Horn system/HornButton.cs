@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,20 +7,17 @@ public class SoundButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [SerializeField] private AudioClip clip;
     public bool horning;
 
-    public void OnPointerDown(PointerEventData eventData) {
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        audioSource.clip = clip;
+        audioSource.loop = true;
         horning = true;
-        StartCoroutine(LoopSound());
+        audioSource.Play();
     }
 
-    public void OnPointerUp(PointerEventData eventData) {
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        audioSource.Stop();
         horning = false;
     }
-
-    private IEnumerator LoopSound() {
-        while (horning) {
-            audioSource.PlayOneShot(clip);
-            yield return new WaitForSeconds(clip.length);
-        }
-    }
 }
-

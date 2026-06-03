@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FinishLine : MonoBehaviour
 {
-    [SerializeField] private GameObject victoryScreen;
+    [SerializeField] private GameObject victoryScreen, uiPanel;
     [SerializeField] private rb rbVelocity;
     [SerializeField] private int level;
     [SerializeField] private bool isNotDamaged = true, isPhotoTaken = false, isInTime = true;
@@ -25,6 +25,7 @@ public class FinishLine : MonoBehaviour
         {
             GameManager.Instance.FinishLevel(level, isNotDamaged, isPhotoTaken, isInTime);
             GameManager.Instance.StopTime();
+            uiPanel.SetActive(false);
             victoryScreen.SetActive(true);
             rbVelocity.SetAccelerationByIndex(1);
         }

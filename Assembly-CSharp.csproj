@@ -59,21 +59,29 @@
     <UnityVersion>2022.3.62f2</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Users\USUARIO\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.2.2\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Users\ignat\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.2.2\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.62f2\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.62f2\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\scripts\GameManager.cs" />
     <Compile Include="Assets\scripts\UI controls\RudderCtrl.cs" />
+    <Compile Include="Assets\scripts\UI controls\TutorialScript.cs" />
+    <Compile Include="Assets\CounterInit.cs" />
     <Compile Include="Assets\scripts\Menu\FinishLine.cs" />
     <Compile Include="Assets\scripts\Horn system\HornButton.cs" />
+    <Compile Include="Assets\MusicManager.cs" />
+    <Compile Include="Assets\scripts\Menu\selectorMark.cs" />
     <Compile Include="Assets\scripts\Horn system\ButtonHandler.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\scripts\Door system\DoorCollision.cs" />
+    <Compile Include="Assets\deadCount.cs" />
     <Compile Include="Assets\scripts\SeaCurrent.cs" />
     <Compile Include="Assets\scripts\Door system\DoorController.cs" />
+    <Compile Include="Assets\endLevelChecks.cs" />
     <Compile Include="Assets\scripts\UI controls\cameraCtrl.cs" />
+    <Compile Include="Assets\CounterTime.cs" />
+    <Compile Include="Assets\flashesScript.cs" />
     <Compile Include="Assets\scripts\ObjectiveTrigger.cs" />
     <Compile Include="Assets\scripts\Menu\MenuSystem.cs" />
     <Compile Include="Assets\scripts\UI controls\RudderVisuals.cs" />
